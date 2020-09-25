@@ -219,7 +219,7 @@ void rttnw::gl_setup()
     // logic to get the g code written to cout
     //  not going to put a lot of time into optimizing (removing redundant commands, for example)
 
-    std::string filename = std::string("heightmap.png");
+    std::string filename = std::string("HF_HAND.png");
 
     std::vector<unsigned char> image_loaded_bytes;
     unsigned width, height;
@@ -241,7 +241,15 @@ void rttnw::gl_setup()
         step.resize(height);
     
 
-    cout << "G1"; 
+
+
+    // startup stuff
+    cout << "F300" << endl;          // feed rate
+    cout << "G0Z7.000" << endl;      // lift up
+    cout << "S1000M3" << endl << endl; // set speed, start spindle
+
+    
+    cout << "G1"; // start long movement command
 
     for(int y = 0; y < height; y++)
     {
@@ -277,8 +285,10 @@ void rttnw::gl_setup()
     }
 
     
-
-
+    cout << "M5" << endl;       //stop spindle
+    cout << "G0Z7.000" << endl; //raise
+    cout << "G0X0Y0" << endl;   //go home
+    cout << "M30" << endl;      //end program
 
 
 
