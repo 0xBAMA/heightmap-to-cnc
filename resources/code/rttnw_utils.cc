@@ -219,7 +219,7 @@ void rttnw::gl_setup()
     // logic to get the g code written to cout
     //  not going to put a lot of time into optimizing (removing redundant commands, for example)
 
-    std::string filename = std::string("HF_HAND.png");
+    std::string filename = std::string("big.png");
 
     std::vector<unsigned char> image_loaded_bytes;
     unsigned width, height;
