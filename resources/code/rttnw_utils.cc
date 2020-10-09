@@ -219,7 +219,7 @@ void rttnw::gl_setup()
     // logic to get the g code written to cout
     //  not going to put a lot of time into optimizing (removing redundant commands, for example)
 
-    std::string filename = std::string("headcrack.png");
+    std::string filename = std::string("weirdface.png");
 
     std::vector<unsigned char> image_loaded_bytes;
     unsigned width, height;
@@ -248,45 +248,69 @@ void rttnw::gl_setup()
     cout << "G0Z7.000" << endl;      // lift up
     cout << "S1000M3" << endl << endl; // set speed, start spindle
 
+
+    float basex, basey;
     
-    cout << "G1"; // start long movement command
 
-    for(int y = 0; y < height; y++)
+
+    for(int xindex = 0; xindex < 1; xindex++)
     {
-        for(int x = 0; x < width; x++)
+        for(int yindex = 0; yindex < 4; yindex++)
         {
-            int r, g, b;
-            if(y % 2)
+            basex = 2.5+xindex*18.0;
+            basey = 0.0+yindex*22.0;
+            
+            // home to the initial starting point, with the spindle lifted
+            cout << "G1X" << basex << "Y" << basey << "Z7.0" << endl;
+            
+            cout << "G1"; // start long movement command to cut one unit of the pattern
+            for(int y = 0; y < height; y++)
             {
-                r = (int)image_loaded_bytes[4*(x+width*y)+0];
-                g = (int)image_loaded_bytes[4*(x+width*y)+1];
-                b = (int)image_loaded_bytes[4*(x+width*y)+2];
-                // output the x, going from low to high
-                cout << "X" << x*0.06;
-            }
-            else
-            {
-                r = (int)image_loaded_bytes[4*((width-x)+width*y)+0];
-                g = (int)image_loaded_bytes[4*((width-x)+width*y)+1];
-                b = (int)image_loaded_bytes[4*((width-x)+width*y)+2];
-                // output the x, going from high to low
-                cout << "X" << (width-x)*0.06;
-            }
+                for(int x = 0; x < width; x++)
+                {
+                    int r, g, b;
+                    if(y % 2)
+                    {
+                        r = (int)image_loaded_bytes[4*(x+width*y)+0];
+                        g = (int)image_loaded_bytes[4*(x+width*y)+1];
+                        b = (int)image_loaded_bytes[4*(x+width*y)+2];
+                        // output the x, going from low to high
+                        cout << "X" << x*0.06+basex;
+                    }
+                    else
+                    {
+                        r = (int)image_loaded_bytes[4*((width-x)+width*y)+0];
+                        g = (int)image_loaded_bytes[4*((width-x)+width*y)+1];
+                        b = (int)image_loaded_bytes[4*((width-x)+width*y)+2];
+                        // output the x, going from high to low
+                        cout << "X" << (width-x)*0.06+basex;
+                    }
 
-            //the array is kind of pointless now but whatever
-            data[x][y] = ((((r+b+g) / 3.0) / 255.0) * (max-min)) + min;
-            //output the vertical component, in the range of min to max
-            cout << "Z" << data[x][y] << " " << endl;
+                    //the array is kind of pointless now but whatever
+                    data[x][y] = ((((r+b+g) / 3.0) / 255.0) * (max-min)) + min;
+                    //output the vertical component, in the range of min to max
+                    cout << "Z" << data[x][y] << " " << endl;
+                }
+
+                //time to advance the bit along the y
+                cout << "Y" << y*0.06-0.02+basey << endl;
+                cout << "Y" << y*0.06+0.04+basey << endl;
+            }
+            cout << "G0Z7.000" << endl; //raise
         }
-
-        //time to advance the bit along the y
-        cout << "Y" << y*0.06-0.02 << endl;
-        cout << "Y" << y*0.06+0.04 << endl;
     }
-
+    
     
     cout << "M5" << endl;       //stop spindle
     cout << "G0Z7.000" << endl; //raise
+
+    
+
+
+
+
+    
+    
     cout << "G0X0Y0" << endl;   //go home
     cout << "M30" << endl;      //end program
 
@@ -300,7 +324,7 @@ void rttnw::gl_setup()
 
 
 
-    cout << endl << endl << endl << "max x is " << width*0.06 << " mm and max y is " << height*0.06 << endl << endl;
+    // cout << endl << endl << endl << "max x is " << width*0.06 << " mm and max y is " << height*0.06 << endl << endl;
 
 
 
