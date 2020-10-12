@@ -255,13 +255,14 @@ void rttnw::gl_setup()
 
     for(int xindex = 0; xindex < 1; xindex++)
     {
-        for(int yindex = 0; yindex < 4; yindex++)
+        for(int yindex = 0; yindex < 8; yindex++)
         {
             basex = 2.5+xindex*18.0;
             basey = 0.0+yindex*22.0;
             
             // home to the initial starting point, with the spindle lifted
-            cout << "G1X" << basex << "Y" << basey << "Z7.0" << endl;
+            // cout << "G1X" << basex << "Y" << basey << "Z7.0" << endl;
+            cout << "G1X" << basey << "Y" << basex << "Z7.0" << endl;
             
             cout << "G1"; // start long movement command to cut one unit of the pattern
             for(int y = 0; y < height; y++)
@@ -275,7 +276,8 @@ void rttnw::gl_setup()
                         g = (int)image_loaded_bytes[4*(x+width*y)+1];
                         b = (int)image_loaded_bytes[4*(x+width*y)+2];
                         // output the x, going from low to high
-                        cout << "X" << x*0.06+basex;
+                        // cout << "X" << x*0.06+basex;
+                        cout << "Y" << x*0.06+basex;
                     }
                     else
                     {
@@ -283,7 +285,8 @@ void rttnw::gl_setup()
                         g = (int)image_loaded_bytes[4*((width-x)+width*y)+1];
                         b = (int)image_loaded_bytes[4*((width-x)+width*y)+2];
                         // output the x, going from high to low
-                        cout << "X" << (width-x)*0.06+basex;
+                        // cout << "X" << (width-x)*0.06+basex;
+                        cout << "Y" << (width-x)*0.06+basex;
                     }
 
                     //the array is kind of pointless now but whatever
@@ -293,8 +296,10 @@ void rttnw::gl_setup()
                 }
 
                 //time to advance the bit along the y
-                cout << "Y" << y*0.06-0.02+basey << endl;
-                cout << "Y" << y*0.06+0.04+basey << endl;
+                // cout << "Y" << y*0.06-0.02+basey << endl;
+                // cout << "Y" << y*0.06+0.04+basey << endl;
+                cout << "X" << y*0.06-0.02+basey << endl;
+                cout << "X" << y*0.06+0.04+basey << endl;
             }
             cout << "G0Z7.000" << endl; //raise
         }
