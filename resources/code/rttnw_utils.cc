@@ -255,7 +255,7 @@ void rttnw::gl_setup()
 
     for(int xindex = 0; xindex < 1; xindex++)
     {
-        for(int yindex = 0; yindex < 11; yindex++)
+        for(int yindex = 0; yindex < 12; yindex++)
         {
             basex = 2.5+xindex*18.0;
             basey = 0.0+yindex*22.0;
