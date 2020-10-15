@@ -219,7 +219,7 @@ void rttnw::gl_setup()
     // logic to get the g code written to cout
     //  not going to put a lot of time into optimizing (removing redundant commands, for example)
 
-    std::string filename = std::string("weirdface.png");
+    std::string filename = std::string("eye.png");
 
     std::vector<unsigned char> image_loaded_bytes;
     unsigned width, height;
@@ -233,13 +233,13 @@ void rttnw::gl_setup()
 
     float min = -3.0;
     float max = 0.0;
-    
+
     std::vector<std::vector<float>> data; // go ahead and map to range
 
     data.resize(width);
     for(auto& step : data)
         step.resize(height);
-    
+
 
 
 
@@ -250,20 +250,20 @@ void rttnw::gl_setup()
 
 
     float basex, basey;
-    
+
 
 
     for(int xindex = 0; xindex < 1; xindex++)
     {
-        for(int yindex = 0; yindex < 12; yindex++)
+        for(int yindex = 0; yindex < 1; yindex++)
         {
             basex = 2.5+xindex*18.0;
             basey = 0.0+yindex*22.0;
-            
+
             // home to the initial starting point, with the spindle lifted
             // cout << "G1X" << basex << "Y" << basey << "Z7.0" << endl;
             cout << "G1X" << basey << "Y" << basex << "Z7.0" << endl;
-            
+
             cout << "G1"; // start long movement command to cut one unit of the pattern
             for(int y = 0; y < height; y++)
             {
@@ -304,18 +304,18 @@ void rttnw::gl_setup()
             cout << "G0Z7.000" << endl; //raise
         }
     }
-    
-    
+
+
     cout << "M5" << endl;       //stop spindle
     cout << "G0Z7.000" << endl; //raise
 
-    
 
 
 
 
-    
-    
+
+
+
     cout << "G0X0Y0" << endl;   //go home
     cout << "M30" << endl;      //end program
 
@@ -323,7 +323,7 @@ void rttnw::gl_setup()
 
 
 
-    
+
 
 
 
@@ -337,7 +337,6 @@ void rttnw::gl_setup()
 
 
 
-    
 
 
 
@@ -355,7 +354,8 @@ void rttnw::gl_setup()
 
 
 
-    
+
+
 
 }
 
