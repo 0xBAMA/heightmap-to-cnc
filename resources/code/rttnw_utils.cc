@@ -219,7 +219,7 @@ void rttnw::gl_setup()
     // logic to get the g code written to cout
     //  not going to put a lot of time into optimizing (removing redundant commands, for example)
 
-    std::string filename = std::string("eye.png");
+    std::string filename = std::string("faces.png");
 
     std::vector<unsigned char> image_loaded_bytes;
     unsigned width, height;
