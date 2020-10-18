@@ -219,7 +219,7 @@ void rttnw::gl_setup()
     // logic to get the g code written to cout
     //  not going to put a lot of time into optimizing (removing redundant commands, for example)
 
-    std::string filename = std::string("headcrack.png");
+    std::string filename = std::string("eye.png");
 
     std::vector<unsigned char> image_loaded_bytes;
     unsigned width, height;
@@ -255,7 +255,7 @@ void rttnw::gl_setup()
 
     for(int xindex = 0; xindex < 1; xindex++)
     {
-        for(int yindex = 0; yindex < 1; yindex++)
+        for(int yindex = 0; yindex < 4; yindex++)
         {
             basex = 2.5+xindex*18.0;
             basey = 0.0+yindex*22.0;
