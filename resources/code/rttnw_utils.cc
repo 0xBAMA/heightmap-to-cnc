@@ -258,7 +258,7 @@ void rttnw::gl_setup()
         for(int yindex = 0; yindex < 4; yindex++)
         {
             basex = 2.5+xindex*18.0;
-            basey = 0.0+yindex*32.0;
+            basey = 0.0+yindex*34.0;
 
             // home to the initial starting point, with the spindle lifted
             // cout << "G1X" << basex << "Y" << basey << "Z7.0" << endl;
